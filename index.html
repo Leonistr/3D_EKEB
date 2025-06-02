@@ -262,6 +262,7 @@
   const adminList = document.getElementById('admin-list');
 
   let currentView = 'cards'; // cards или table
+  let sortByPriceAsc = true; // По умолчанию сортировка по возрастанию
 
   function getProducts() {
     const data = localStorage.getItem('3dProducts');
@@ -297,7 +298,7 @@
             <th>Фото</th>
             <th>Название</th>
             <th>Описание</th>
-            <th>Цена (₸)</th>
+            <th id="price-header" style="cursor:pointer">Цена (₸) ▲▼</th>
           </tr>
         </thead>
         <tbody>
@@ -315,6 +316,19 @@
     `;
   }
 }
+document.addEventListener('click', function (e) {
+  if (e.target.id === 'price-header') {
+    const products = getProducts();
+    products.sort((a, b) => {
+      const pa = parseFloat(a.price);
+      const pb = parseFloat(b.price);
+      return sortByPriceAsc ? pa - pb : pb - pa;
+    });
+    sortByPriceAsc = !sortByPriceAsc;
+    saveProducts(products);
+    renderCatalog();
+  }
+});
 
 
   // Переключение вида
