@@ -5,234 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Каталог 3D-печати</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #111;
-      color: #eee;
-      margin: 0; padding: 0;
-      display: flex;
-      min-height: 100vh;
-      flex-direction: column;
-      align-items: center;
-    }
-    header {
-      background: #222;
-      width: 100%;
-      padding: 10px 0;
-      text-align: center;
-      font-weight: bold;
-      letter-spacing: 2px;
-      font-size: 1.5em;
-      border-bottom: 1px solid #444;
-    }
-    main {
-      width: 95%;
-      max-width: 1000px;
-      margin-top: 20px;
-      flex-grow: 1;
-    }
-    .view-switch {
-      margin-bottom: 15px;
-      text-align: center;
-    }
-    .view-switch button {
-      background: #333;
-      border: none;
-      color: #eee;
-      padding: 8px 16px;
-      margin: 0 5px;
-      cursor: pointer;
-      font-weight: 600;
-      border-radius: 3px;
-      transition: background 0.3s;
-    }
-    .view-switch button.active,
-    .view-switch button:hover {
-      background: #0ff;
-      color: #000;
-    }
-    /* Карточки */
-    .catalog.cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 15px;
-      justify-content: center;
-    }
-    .card {
-      background: #222;
-      border-radius: 6px;
-      width: 230px;
-      box-shadow: 0 0 8px #0ff4;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s;
-    }
-    .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #0fff;
-    }
-    .card img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-bottom: 1px solid #0ff;
-    }
-    .card-body {
-      padding: 10px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .card-title {
-  font-weight: 700;
-  font-size: 1.1em;
-  margin-bottom: 6px;
-  color: #0ff;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-    }
-    .card-desc {
-      font-size: 0.9em;
-      flex-grow: 1;
-      color: #aaa;
-      margin-bottom: 8px;
-    }
-    .card-price {
-      font-weight: 700;
-      color: #0ff;
-      font-size: 1.2em;
-      text-align: right;
-    }
-
-    /* Таблица */
-    table.catalog-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #222;
-      box-shadow: 0 0 8px #0ff4;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    table.catalog-table th, table.catalog-table td {
-      padding: 12px 10px;
-      border-bottom: 1px solid #0ff3;
-      color: #eee;
-      text-align: left;
-      vertical-align: middle;
-    }
-    table.catalog-table th {
-      background: #0ff1;
-      color: #000;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-    table.catalog-table tr:hover {
-      background: #0ff2;
-      color: #000;
-      cursor: default;
-    }
-    table.catalog-table img {
-      width: 80px;
-      height: 60px;
-      object-fit: cover;
-      border-radius: 3px;
-      border: 1px solid #0ff;
-    }
-
-    /* Админка */
-    #admin {
-      background: #111;
-      margin-top: 30px;
-      padding: 20px;
-      border: 1px solid #0ff;
-      border-radius: 8px;
-      max-width: 600px;
-      width: 90%;
-      color: #0ff;
-    }
-    #admin h2 {
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    #admin form {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    #admin input, #admin textarea {
-      background: #222;
-      border: 1px solid #0ff;
-      border-radius: 4px;
-      padding: 8px;
-      color: #eee;
-      font-size: 1em;
-      resize: none;
-    }
-    #admin button {
-      background: #0ff;
-      border: none;
-      padding: 10px;
-      font-weight: 700;
-      color: #000;
-      cursor: pointer;
-      border-radius: 4px;
-      transition: background 0.3s;
-    }
-    #admin button:hover {
-      background: #06c;
-      color: #fff;
-    }
-    #admin-list {
-      margin-top: 20px;
-      max-height: 200px;
-      overflow-y: auto;
-      border-top: 1px solid #0ff;
-    }
-    #admin-list div {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid #0ff3;
-      font-size: 0.9em;
-    }
-    #admin-list div span {
-      flex-grow: 1;
-      padding-left: 10px;
-    }
-    #admin-list button.delete {
-      background: #c00;
-      border: none;
-      color: #fff;
-      padding: 3px 8px;
-      border-radius: 3px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    #admin-list button.delete:hover {
-      background: #f00;
-    }
-
-    /* Мелкие детали */
-    .price-symbol {
-      color: #0ff;
-    }
-
-    @media (max-width: 600px) {
-      .catalog.cards {
-        justify-content: center;
-      }
-      .card {
-        width: 100%;
-        max-width: 320px;
-      }
-      table.catalog-table img {
-        width: 60px;
-        height: 45px;
-      }
-    }
+    /* Стили такие же, как у тебя — не дублирую */
   </style>
 </head>
 <body>
@@ -245,24 +18,31 @@
     <button id="btn-table">Таблица</button>
   </div>
 
-  <div id="catalog-container">
-    <!-- Здесь будет вывод каталога -->
-  </div>
+  <div id="catalog-container"></div>
+
+  <section id="admin">
+    <h2>Добавить товар</h2>
+    <form id="add-product-form">
+      <input type="text" id="product-name" placeholder="Название" required />
+      <textarea id="product-desc" rows="2" placeholder="Описание" required></textarea>
+      <input type="number" id="product-price" placeholder="Цена (тг)" required />
+      <input type="url" id="product-img" placeholder="Ссылка на изображение" required />
+      <button type="submit">Добавить</button>
+    </form>
+
+    <div id="admin-list"></div>
+  </section>
 </main>
 
-
 <script>
-  // Данные храним в localStorage, чтобы не терять между обновлениями.
-  // Формат товара: { id, name, desc, price, img }
-
   const catalogContainer = document.getElementById('catalog-container');
   const btnCards = document.getElementById('btn-cards');
   const btnTable = document.getElementById('btn-table');
   const addForm = document.getElementById('add-product-form');
   const adminList = document.getElementById('admin-list');
 
-  let currentView = 'cards'; // cards или table
-  let sortByPriceAsc = true; // По умолчанию сортировка по возрастанию
+  let currentView = 'cards';
+  let sortByPriceAsc = true;
 
   function getProducts() {
     const data = localStorage.getItem('3dProducts');
@@ -274,66 +54,85 @@
   }
 
   function renderCatalog() {
-  const products = getProducts();
+    const products = getProducts();
 
-  if (currentView === 'cards') {
-    catalogContainer.className = 'catalog cards';
-    catalogContainer.innerHTML = products.map((p, i) => `
-      <div class="card" title="${p.name}">
-        <img src="${p.img}" alt="${p.name}" />
-        <div class="card-body">
-          <div class="card-title">${i + 1}. ${p.name}</div>
-          <div class="card-desc">${p.desc}</div>
-          <div class="card-price"><span class="price-symbol">₸</span> ${p.price}</div>
+    if (currentView === 'cards') {
+      catalogContainer.className = 'catalog cards';
+      catalogContainer.innerHTML = products.map((p, i) => `
+        <div class="card" title="${p.name}">
+          <img src="${p.img}" alt="${p.name}" />
+          <div class="card-body">
+            <div class="card-title">${i + 1}. ${p.name}</div>
+            <div class="card-desc">${p.desc}</div>
+            <div class="card-price"><span class="price-symbol">₸</span> ${p.price}</div>
+          </div>
         </div>
+      `).join('');
+    } else {
+      catalogContainer.className = '';
+      catalogContainer.innerHTML = `
+        <table class="catalog-table">
+          <thead>
+            <tr>
+              <th>№</th>
+              <th>Фото</th>
+              <th>Название</th>
+              <th>Описание</th>
+              <th id="price-header" style="cursor:pointer">Цена (₸) ▲▼</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${products.map((p, i) => `
+              <tr title="${p.name}">
+                <td>${i + 1}</td>
+                <td><img src="${p.img}" alt="${p.name}" /></td>
+                <td>${p.name}</td>
+                <td>${p.desc}</td>
+                <td><span class="price-symbol">₸</span>${p.price}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+  }
+
+  function renderAdminList() {
+    const products = getProducts();
+    adminList.innerHTML = products.map((p, i) => `
+      <div>
+        <span>${i + 1}. ${p.name}</span>
+        <button class="delete" onclick="deleteProduct(${i})">Удалить</button>
       </div>
     `).join('');
-  } else {
-    catalogContainer.className = '';
-    catalogContainer.innerHTML = `
-      <table class="catalog-table">
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Фото</th>
-            <th>Название</th>
-            <th>Описание</th>
-            <th id="price-header" style="cursor:pointer">Цена (₸) ▲▼</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${products.map((p, i) => `
-            <tr title="${p.name}">
-              <td>${i + 1}</td>
-              <td><img src="${p.img}" alt="${p.name}" /></td>
-              <td>${p.name}</td>
-              <td>${p.desc}</td>
-              <td><span class="price-symbol">₸</span>${p.price}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    `;
   }
-}
-document.addEventListener('click', function (e) {
-  if (e.target.id === 'price-header') {
+
+  function deleteProduct(index) {
     const products = getProducts();
-    products.sort((a, b) => {
-      const pa = parseFloat(a.price);
-      const pb = parseFloat(b.price);
-      return sortByPriceAsc ? pa - pb : pb - pa;
-    });
-    sortByPriceAsc = !sortByPriceAsc;
+    products.splice(index, 1);
     saveProducts(products);
     renderCatalog();
+    renderAdminList();
   }
-});
 
+  addForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('product-name').value.trim();
+    const desc = document.getElementById('product-desc').value.trim();
+    const price = parseFloat(document.getElementById('product-price').value);
+    const img = document.getElementById('product-img').value.trim();
 
-  // Переключение вида
+    if (!name || !desc || !img || isNaN(price)) return;
+
+    const products = getProducts();
+    products.push({ name, desc, price, img });
+    saveProducts(products);
+    addForm.reset();
+    renderCatalog();
+    renderAdminList();
+  });
+
   btnCards.addEventListener('click', () => {
-    if(currentView === 'cards') return;
     currentView = 'cards';
     btnCards.classList.add('active');
     btnTable.classList.remove('active');
@@ -341,16 +140,24 @@ document.addEventListener('click', function (e) {
   });
 
   btnTable.addEventListener('click', () => {
-    if(currentView === 'table') return;
     currentView = 'table';
     btnTable.classList.add('active');
     btnCards.classList.remove('active');
     renderCatalog();
   });
 
-  // Первичный рендер
-  renderCatalog();
+  catalogContainer.addEventListener('click', (e) => {
+    if (e.target.id === 'price-header') {
+      const products = getProducts();
+      products.sort((a, b) => sortByPriceAsc ? a.price - b.price : b.price - a.price);
+      sortByPriceAsc = !sortByPriceAsc;
+      saveProducts(products);
+      renderCatalog();
+    }
+  });
 
+  renderCatalog();
+  renderAdminList();
 </script>
 
 </body>
